@@ -24,12 +24,16 @@ class GenerateFlatmapSourcesStep(WorkflowStepMountPoint):
         # Add any other initialisation code here:
         self._icon = QtGui.QImage(':/generateflatmapsourcesstep/images/morphometric.png')
         # Ports:
-        self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
-                      'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
-                      'http://physiomeproject.org/workflow/1.0/rdf-schema#exf_file'))
         self.addPort([('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
                        'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
-                       'http://physiomeproject.org/workflow/1.0/rdf-schema#csv_file'),
+                       'http://physiomeproject.org/workflow/1.0/rdf-schema#exf_file_location'),
+                      ('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
+                       'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
+                       'http://physiomeproject.org/workflow/1.0/rdf-schema#file_location')
+                      ])
+        self.addPort([('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
+                       'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
+                       'http://physiomeproject.org/workflow/1.0/rdf-schema#json_file_location'),
                       ('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
                        'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
                        'http://physiomeproject.org/workflow/1.0/rdf-schema#file_location')
@@ -62,7 +66,7 @@ class GenerateFlatmapSourcesStep(WorkflowStepMountPoint):
         root_region.readFile(self._portData0)
 
         exporter = ArgonSceneExporter(self._portData2, self._config['prefix'])
-        exporter.set_annotations_csv_file(self._portData1)
+        exporter.set_annotations_json_file(self._portData1)
         exporter.export_from_scene(root_region.getScene())
 
         _create_manifest(self._portData2, self._config['prefix'])
