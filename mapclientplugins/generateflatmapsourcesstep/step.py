@@ -158,7 +158,7 @@ def _create_manifest(location, prefix):
         "models": "UBERON:0001759",
         "description": "description.json",
         "properties": "properties.json",
-        "sckan-version": "sckan-2024-03-26",
+        "sckan-version": "sckan-2025-09-14",
         "kind": "centreline",
         "sources": [
             {
